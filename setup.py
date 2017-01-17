@@ -194,6 +194,7 @@ setuptools.setup(name='pyros_common',
     packages=[
         'pyros_common',
         'pyros_common.tests',
+        'pyros_interfaces_base',
     ],
     # this is better than using package data ( since behavior is a bit different from distutils... )
     include_package_data=True,  # use MANIFEST.in during install.
