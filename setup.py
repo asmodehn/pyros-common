@@ -6,7 +6,7 @@ import tempfile
 import setuptools
 
 # Ref : https://packaging.python.org/single_source_version/#single-sourcing-the-version
-with open('pyros/common/_version.py') as vf:
+with open('pyros_common/_version.py') as vf:
     exec(vf.read())
 
 # Best Flow :
@@ -193,8 +193,6 @@ setuptools.setup(name='pyros_common',
     license='BSD',
     packages=[
         'pyros_common',
-        'pyros_common.tests',
-        'pyros_interfaces_base',
     ],
     # this is better than using package data ( since behavior is a bit different from distutils... )
     include_package_data=True,  # use MANIFEST.in during install.
