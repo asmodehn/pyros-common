@@ -163,7 +163,7 @@ class RosDevelopCommand(setuptools.Command):
 
 class ROSPublishCommand(setuptools.Command):
     """Command to release this package to Pypi"""
-    description = "releases pyros-common to ROS"
+    description = "releases pyros-interfaces-common to ROS"
     user_options = []
 
     def initialize_options(self):
