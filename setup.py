@@ -6,7 +6,7 @@ import tempfile
 import setuptools
 
 # Ref : https://packaging.python.org/single_source_version/#single-sourcing-the-version
-with open('pyros_common/_version.py') as vf:
+with open('pyros_interfaces/common/_version.py') as vf:
     exec(vf.read())
 
 # Best Flow :
@@ -184,7 +184,7 @@ class ROSPublishCommand(setuptools.Command):
         sys.exit()
 
 
-setuptools.setup(name='pyros_common',
+setuptools.setup(name='pyros_interfaces.common',
     version=__version__,
     description='ROS Node to provide ROS introspection for non-ROS users.',
     url='http://github.com/asmodehn/pyros',
@@ -192,7 +192,10 @@ setuptools.setup(name='pyros_common',
     author_email='asmodehn@gmail.com',
     license='BSD',
     packages=[
-        'pyros_common',
+        'pyros_interfaces',
+        'pyros_interfaces.common',
+        'pyros_interfaces.mock',
+        'pyros_interfaces.mock.tests',
     ],
     # this is better than using package data ( since behavior is a bit different from distutils... )
     include_package_data=True,  # use MANIFEST.in during install.
@@ -214,5 +217,5 @@ setuptools.setup(name='pyros_common',
         'rospublish': ROSPublishCommand,
     },
     zip_safe=False,  # TODO testing...
-    # namespace_packages=['pyros']
+    namespace_packages=['pyros_interfaces']
 )
