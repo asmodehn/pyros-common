@@ -19,6 +19,7 @@ Hopefully this should endup in ros.__doc__
 # create logger
 # TODO solve multiprocess logger problem(s)...
 _logger = logging.getLogger(__name__)
+_logger.addHandler(logging.NullHandler())
 
 try:
     # early except to prevent unintentional workaround in all modules here for packages we depend on
