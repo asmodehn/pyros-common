@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(pyros_interfaces_common)  # we need to follow ros package naming conventions here
+project(pyros_common)  # we need to follow ros package naming conventions here
+# TODO : change name from lunar distro to match python naming (we are now using namespaces)
 
 # Minimal Python module setup - catkin is assumed preinstalled along with ROS
 # This assume catkin is installed along with a minimal ROS system.

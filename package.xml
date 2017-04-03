@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>pyros_interfaces_common</name>
+  <name>pyros_common</name>
+  <!-- new name, from lunar distro
+  <name>pyros_interfaces_common</name> -->
   <version>0.4.0</version>
   <description>
     Common subpackages for Pyros framework
