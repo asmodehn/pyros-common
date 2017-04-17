@@ -1,7 +1,5 @@
 from __future__ import absolute_import
 
-
-from pyros import config
 from pyros_interfaces.common.basenode import PyrosBase
 
 from .mockinterface import MockInterface
@@ -38,7 +36,8 @@ class PyrosMock(PyrosBase):
         )
 
         # overriding default config with parameter provided
-        self.config_handler.configure(config)  # configuring with our package default
+        # TMP currently disabling this to not depend on pyros. maybe it s not even needed ?
+        # self.config_handler.configure(config)  # configuring with our package default
         if pyros_config:
             self.config_handler.configure(pyros_config)  # configuring with argument passed form user
 
