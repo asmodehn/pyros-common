@@ -209,6 +209,9 @@ setuptools.setup(name='pyros_interfaces.common',
         'nose>=1.3.7',
         'mock==1.0.1',  # old mock to be compatible with trusty versions
     ],
+    test_requires=[
+        'pyros',  # we need pyros for testing...
+    ],
     # Reference for optional dependencies : http://stackoverflow.com/questions/4796936/does-pip-handle-extras-requires-from-setuptools-distribute-based-sources
     cmdclass={
         'rosdevelop': RosDevelopCommand,
