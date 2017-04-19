@@ -43,7 +43,7 @@ class PrepareReleaseCommand(setuptools.Command):
         # TODO :
         # $ gitchangelog >CHANGELOG.rst
         # change version in code and changelog
-        subprocess.check_call("git commit CHANGELOG.rst pyros_common/_version.py -m 'v{0}'".format(__version__), shell=True)
+        subprocess.check_call("git commit CHANGELOG.rst pyros_interfaces/common/_version.py -m 'v{0}'".format(__version__), shell=True)
         subprocess.check_call("git push", shell=True)
 
         print("You should verify travis checks, and you can publish this release with :")
@@ -109,7 +109,7 @@ class RosDevelopCommand(setuptools.Command):
         repo_path = tempfile.mkdtemp(prefix='rosdevelop-' + os.path.dirname(__file__))  # TODO get actual package name ?
         print("Getting ROS release repo in {0}...".format(repo_path))
         # TODO : get release repo from ROSdistro
-        rosrelease_repo = git.Repo.clone_from('https://github.com/asmodehn/pyros-rosrelease.git', repo_path)
+        rosrelease_repo = git.Repo.clone_from('https://github.com/asmodehn/pyros-common-rosrelease.git', repo_path)
 
         # Reset our working tree to master
         origin = rosrelease_repo.remotes.origin
