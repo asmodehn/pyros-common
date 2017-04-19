@@ -9,9 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 # defining current package as a package that should be managed by pip (not catkin - even though we make it usable with workspaces)
-catkin_pip_package(pyros_interfaces.common)
-
-
+catkin_pip_package(pyros_interfaces_common)
 
 ## Unit tests
 if (CATKIN_ENABLE_TESTING)
@@ -22,7 +20,7 @@ if (CATKIN_ENABLE_TESTING)
     ##############################################################################
 
     # Careful this will not support parallel testing, due to multiprocess environment used in tests
-    catkin_add_nosetests(pyros_interfaces/mock/tests)
+    catkin_add_nosetests(pyros_interfaces_mock/tests)
 
     # TODO : run ROS tests with --no-skip to force them...
 
