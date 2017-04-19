@@ -4,6 +4,9 @@ Changelog
 
 0.4.2 (2017-04-19)
 ------------------
+- Fixing setup.py to point to normal pyros-common package. [AlexV]
+- V0.4.2. [AlexV]
+- Fixing setup.py commands after pacakge structure change. [AlexV]
 - Dropping the namespace idea, since we cant make a working deb pkg out
   of it. [AlexV]
 - Preparing ros release... [AlexV]
