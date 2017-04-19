@@ -163,7 +163,7 @@ class RosDevelopCommand(setuptools.Command):
 
 class ROSPublishCommand(setuptools.Command):
     """Command to release this package to Pypi"""
-    description = "releases pyros-interfaces-common to ROS"
+    description = "releases pyros-common to ROS"
     user_options = []
 
     def initialize_options(self):
@@ -184,9 +184,13 @@ class ROSPublishCommand(setuptools.Command):
         sys.exit()
 
 
-setuptools.setup(name='pyros_interfaces_common',
+setuptools.setup(name='pyros-common',
+    # On PyPI :
+    # - pyros-common is the normal package. (python 2.7)
+    # - pyros-interfaces.common is the namespace package. (TODO : python 3 only if it makes sense ?)
+    # Use one or the other. careful to not create yet another one.
     version=__version__,
-    description='ROS Node to provide ROS introspection for non-ROS users.',
+    description='Common interface packages for Pyros framework',
     url='http://github.com/asmodehn/pyros-common',
     author='AlexV',
     author_email='asmodehn@gmail.com',
