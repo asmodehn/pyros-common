@@ -43,7 +43,7 @@ class PrepareReleaseCommand(setuptools.Command):
         # TODO :
         # $ gitchangelog >CHANGELOG.rst
         # change version in code and changelog
-        subprocess.check_call("git commit CHANGELOG.rst pyros_interfaces/common/_version.py -m 'v{0}'".format(__version__), shell=True)
+        subprocess.check_call("git commit CHANGELOG.rst pyros_interfaces_common/_version.py -m 'v{0}'".format(__version__), shell=True)
         subprocess.check_call("git push", shell=True)
 
         print("You should verify travis checks, and you can publish this release with :")
