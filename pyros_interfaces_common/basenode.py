@@ -20,8 +20,9 @@ class PyrosBase(pyzmp.Node):
 
     def __init__(self,
                  name=None,
-                 interface_class=None,
+                 socket_bind=None,
                  context_manager=None,
+                 interface_class=None,
                  args=None,
                  kwargs=None,
                  instance_path=None,
@@ -30,6 +31,8 @@ class PyrosBase(pyzmp.Node):
                  default_config=None):
         """
         :param name: name of the node
+        :param socket_bind: the url string to be passed to underlying network system so that the node is binding to this socket.
+                It will allow a client starting later to communicate with that node.
         :param interface_class: the class of the interface to instantiate (in child process)
                 OR a tuple (module_name, class_name), useful if the module should be imported only in child process
                 OR a tuple (package_name, module_name, class_name), usseful if the module name is relative
@@ -46,11 +49,6 @@ class PyrosBase(pyzmp.Node):
         :param default_config: a dict containing the values to use as default configuration values
         :return:
         """
-        super(PyrosBase, self).__init__(name or 'pyros', context_manager=context_manager, args=args or (), kwargs=kwargs or {})
-
-        self.last_update = 0
-        self.update_interval = 1  # seconds to wait between each update
-
         # we delegate config related behavior (including defaults)
         self.config_handler = ConfigHandler(
             name or 'pyros',
@@ -59,6 +57,19 @@ class PyrosBase(pyzmp.Node):
             root_path=root_path,
             default_config=default_config,
         )
+
+        # TODO : get socket_bind address from config file
+
+        super(PyrosBase, self).__init__(
+            name or 'pyros',
+            socket_bind=socket_bind or "ipc:///tmp/pyros/zmp-services.pipe",  # for now defaults to IPC for ZMQ (only works locally)
+            context_manager=context_manager,
+            args=args or (),
+            kwargs=kwargs or {}
+        )
+
+        self.last_update = 0
+        self.update_interval = 1  # seconds to wait between each update
 
         self.provides(self.msg_build)
         # BWCOMPAT
@@ -74,7 +85,6 @@ class PyrosBase(pyzmp.Node):
         self.provides(self.param)
         self.provides(self.params)
         self.provides(self.setup)
-
 
         if not isinstance(interface_class, tuple) and not (
                 # TODO : we should pre check all the used members are present...
