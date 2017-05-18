@@ -395,11 +395,11 @@ def test_echo_service():
 
 
 class TestPyrosMockProcess(object):
-    def setUp(self):
+    def setup_class(self):
         self.mockInstance = PyrosMock()
         self.mockInstance.start()
 
-    def tearDown(self):
+    def teardown_class(self):
         self.mockInstance.shutdown()
 
     def test_msg_build(self):
