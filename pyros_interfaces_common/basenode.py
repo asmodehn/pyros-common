@@ -175,9 +175,7 @@ class PyrosBase(pyzmp.Node):
         :return: None
         """
 
-        super(PyrosBase, self).start(timeout=timeout)
-        # Because we currently use this to setup connection
-        return self.name
+        return super(PyrosBase, self).start(timeout=timeout)
 
     @abc.abstractmethod
     def setup(self, *args, **kwargs):
