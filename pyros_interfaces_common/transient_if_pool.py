@@ -21,6 +21,8 @@ from .regex_tools import regex_match_sublist, regexes_match_sublist, find_first_
 # Entities are transients (ex : for ROS : pubs, subs, svcs, params, and more can be added),
 # Systems store logic about when/how a transient should be represented in the interface.
 # GOALS : clarity, testability and flexibility
+
+@six.add_metaclass(abc.ABCMeta)
 class TransientIfPool(object):
     # TODO : split available into TransientPool
     # TODO : have update and update_delta managed here in generic way...
@@ -46,7 +48,6 @@ class TransientIfPool(object):
 
     Assumption : we only deal with absolute names here. The users should resolve them
     """
-    __metaclass__ = abc.ABCMeta
 
     def update_transients(self, add_names, remove_names, *class_build_args, **class_build_kwargs):
         """

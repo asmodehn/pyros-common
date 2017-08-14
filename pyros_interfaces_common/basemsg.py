@@ -1,13 +1,15 @@
 from __future__ import absolute_import
+
 import abc
+import six
 
 
+@six.add_metaclass(abc.ABCMeta)
 class BaseMessage(object):
 
     """
     BaseMsg is a base class to handle message type conversion
     """
-    __metaclass__ = abc.ABCMeta
 
     def __init__(self, content_dict):
         """

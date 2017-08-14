@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+import six
 import abc
 import importlib
 
@@ -10,13 +11,14 @@ from .exceptions import PyrosException
 
 
 # TODO : cleaner design by using pyzmp.Node as delegate to make all interface explicit here...
+
+@six.add_metaclass(abc.ABCMeta)
 class PyrosBase(pyzmp.Node):
     """
     Base Interface in pure python ( No ROS needed ).
     Encapsulate another process for isolated execution
     Also handles a package bound configuration (since the child process might want to reload it in its own memory space)
     """
-    __metaclass__ = abc.ABCMeta
 
     def __init__(self,
                  name=None,
