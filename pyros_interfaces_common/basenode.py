@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 import abc
+import contextlib
 import importlib
 
 import pyzmp
@@ -86,6 +87,7 @@ class PyrosBase(pyzmp.Node):
             self.interface_class = interface_class
         self.interface = None  # delayed interface creation
         # interface should be created in child process only to maintain isolation.
+        # BUT in a context to have everything setup after returning from start() call.
 
     #
     # Delegating configuration management
@@ -170,12 +172,12 @@ class PyrosBase(pyzmp.Node):
 
     def start(self, timeout=None):
         """
-        Clean shutdown of the node.
+        Startup of the node.
         :param join: optionally wait for the process to end (default : True)
         :return: None
         """
 
-        super(PyrosBase, self).start(timeout=timeout)
+        assert super(PyrosBase, self).start(timeout=timeout)
         # Because we currently use this to setup connection
         return self.name
 
@@ -227,6 +229,24 @@ class PyrosBase(pyzmp.Node):
             raise PyrosException("The interface class is missing some members to be used as an interface. Aborting Setup. {interface_class}".format(**locals()))
 
         self.interface = self.interface_class(*args, **kwargs)
+        return self.interface
+
+    @contextlib.contextmanager
+    def child_context(self, *args, **kwargs):
+        """
+        Context setup first in child process, before returning from start() call in parent.
+        Result is passed in as argument of update
+        :return:
+        """
+        # calling setup on child context enter call
+
+        #TODO : compose contexts ?
+        if self.interface is None:
+            self.setup(*args, **kwargs)
+
+        with super(PyrosBase, self).child_context(*args, **kwargs) as cctxt:
+            yield cctxt
+
 
     def shutdown(self, join=True, timeout=None):
         """
@@ -245,8 +265,6 @@ class PyrosBase(pyzmp.Node):
         Note : the interface is lazily constructed here
         :param timedelta: the time past since the last update call
         """
-        if self.interface is None:
-            self.setup(*args, **kwargs)
 
         # TODO move time management somewhere else...
         self.last_update += timedelta
