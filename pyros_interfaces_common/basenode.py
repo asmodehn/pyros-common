@@ -238,11 +238,29 @@ class PyrosBase(pyzmp.Node):
         Result is passed in as argument of update
         :return:
         """
-        # calling setup on child context enter call
 
-        #TODO : compose contexts ?
+        # Now we can extract config values
+        expected_args = {
+            'services': [],
+            'topics': [],  # bwcompat
+            'subscribers': [],
+            'publishers': [],
+            'params': [],
+            # TODO : all of them !
+        }
+
+        ifargs = {
+            arg: self.config_handler.config.get(arg.upper(), default) for arg, default in expected_args.items()
+        }
+
+        # overriding with kwargs
+        ifargs.update(kwargs)
+
+        # storing passed args in config in case of reset
+
+        # calling setup on child context enter call
         if self.interface is None:
-            self.setup(*args, **kwargs)
+            self.setup(*args, **ifargs)
 
         with super(PyrosBase, self).child_context(*args, **kwargs) as cctxt:
             yield cctxt
