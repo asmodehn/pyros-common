@@ -113,6 +113,7 @@ class PyrosBase(pyzmp.Node):
     def root_path(self):
         return self.config_handler.root_path
 
+    # TODO : review API : configure and setup are similar, but on different processes, at different times...
     def configure(self, config=None):
         # We default to using a config file named after the import_name:
         config = config or self.name + '.cfg'
@@ -220,7 +221,6 @@ class PyrosBase(pyzmp.Node):
             # get the class, will raise AttributeError if class cannot be found
             self.interface_class = getattr(m, class_name)
 
-
         if not (
                 # TODO : we should pre check all the used members are present...
                 hasattr(self.interface_class, 'services')
@@ -260,11 +260,12 @@ class PyrosBase(pyzmp.Node):
 
         # calling setup on child context enter call
         if self.interface is None:
+            #for BW compat
+            # TODO : change API to use the child_context from pyzmp coprocess
             self.setup(*args, **ifargs)
 
         with super(PyrosBase, self).child_context(*args, **kwargs) as cctxt:
             yield cctxt
-
 
     def shutdown(self, join=True, timeout=None):
         """
