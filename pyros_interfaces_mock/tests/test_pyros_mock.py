@@ -141,6 +141,54 @@ def test_mocknode_publishers_detect():  # Here we check that this node actually 
         assert not mockn.is_alive()
 
 
+def test_mocknode_publishers_configure_detect():  # Here we check that this node actually detects a topic
+    mockn = PyrosMock()
+
+    mockn.configure({
+        'SERVICES': [],
+        'PUBLISHERS': ['test_topic'],
+        'SUBSCRIBERS': [],
+        'PARAMS': []
+    })
+
+    assert not mockn.is_alive()
+
+    assert hasattr(mockn, 'topics')
+
+    # starting the node
+    mockn.start()
+
+    # checking interface is still None here ( instantiated in child only )
+    assert mockn.interface is None
+
+    # Services are initialized in run() method of pyzmp.Node, after interface has been initialized
+    try:
+        assert mockn.is_alive()
+
+        with mock_publisher_remote('test_topic', statusecho_topic):
+
+            # asserting the mock system has done its job from our point of view at least
+            assert 'test_topic' in topics_available_remote
+            assert topics_available_type_remote['test_topic'] == statusecho_topic
+
+            # Getting topics list from child process
+            print("Discovering topics Service...")
+            topics = pyzmp.discover("topics", 3)  # we wait a bit to let it time to start
+            assert topics is not None
+            assert len(topics.providers) == 1
+
+            time.sleep(mockn.update_interval + 1)  # make sure we let update time to kick in
+
+            res = topics.call(recv_timeout=6000000)
+            # the mock system should have done its job from the other process perspective too
+            # via multiprocess manager list
+            assert 'test_topic' in res  # topic detected since in list of exposed topics
+
+    finally:
+        mockn.shutdown()
+        assert not mockn.is_alive()
+
+
 def test_mocknode_publishers_detect_setup():  # Here we check that this node actually detects a topic upon setup
     mockn = PyrosMock()
     assert not mockn.is_alive()
@@ -228,6 +276,55 @@ def test_mocknode_subscribers_detect():  # Here we check that this node actually
         'subscribers': ['test_topic'],
         'params': []
     })
+    assert not mockn.is_alive()
+
+    assert hasattr(mockn, 'topics')
+
+    # starting the node
+    mockn.start()
+
+    # checking interface is still None here ( instantiated in child only )
+    assert mockn.interface is None
+
+    # Services are initialized in run() method of pyzmp.Node, after interface has been initialized
+    try:
+        assert mockn.is_alive()
+
+        with mock_subscriber_remote('test_topic', statusecho_topic):
+
+            # asserting the mock system has done its job from our point of view at least
+            assert 'test_topic' in topics_available_remote
+            assert topics_available_type_remote['test_topic'] == statusecho_topic
+
+            # Getting topics list from child process
+            print("Discovering topics Service...")
+            topics = pyzmp.discover("topics", 3)  # we wait a bit to let it time to start
+            assert topics is not None
+            assert len(topics.providers) == 1
+
+            time.sleep(mockn.update_interval + 1)  # make sure we let update time to kick in
+
+            res = topics.call(recv_timeout=6000000)
+            # the mock system should have done its job from the other process perspective too
+            # via multiprocess manager list
+            assert 'test_topic' in res  # topic detected since in list of exposed topics
+
+    finally:
+        mockn.shutdown()
+        assert not mockn.is_alive()
+
+
+
+def test_mocknode_subscribers_configure_detect():  # Here we check that this node actually detects a topic
+    mockn = PyrosMock()
+
+    mockn.configure({
+        'SERVICES': [],
+        'PUBLISHERS': [],
+        'SUBSCRIBERS': ['test_topic'],
+        'PARAMS': []
+    })
+
     assert not mockn.is_alive()
 
     assert hasattr(mockn, 'topics')
@@ -394,6 +491,8 @@ def test_echo_service():
 
 
 class TestPyrosMockProcess(object):
+
+    mockInstance = None
 
     @classmethod
     def setup_class(cls):
