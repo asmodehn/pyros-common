@@ -2,8 +2,25 @@ Changelog
 =========
 
 
+%%version%% (unreleased)
+------------------------
+- Cosmetics and comments for future API upgrade. [AlexV]
+- Adding tests for configuration after init. [AlexV]
+- Now handling args and config in child context. [AlexV]
+- Now handling interface setup as part of context to guarantee
+  availability after start() call. now using pytest. [AlexV]
+- Added badges. [AlexV]
+- Removing pyros requirements. not needed anymore. [AlexV]
+- Not using pyros_setup anymore here, since we do not depend on ROS
+  environment for common or mock. [AlexV]
+- Remove ROS build files, now useless here since this is just a python
+  package. [AlexV]
+- Fixing cmakelists.txt after reverting to normal package. [AlexV]
+
+
 0.4.2 (2017-04-19)
 ------------------
+- Updating changelog. [AlexV]
 - Fixing setup.py to point to normal pyros-common package. [AlexV]
 - V0.4.2. [AlexV]
 - Fixing setup.py commands after pacakge structure change. [AlexV]
