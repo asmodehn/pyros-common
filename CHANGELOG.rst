@@ -2,8 +2,14 @@ Changelog
 =========
 
 
-%%version%% (unreleased)
-------------------------
+0.5.1 (2018-04-16)
+------------------
+- Adding common package to hold crossprocess exceptions. [AlexV]
+
+
+0.5.0 (2018-04-13)
+------------------
+- V0.5.0. [AlexV]
 - Cosmetics and comments for future API upgrade. [AlexV]
 - Adding tests for configuration after init. [AlexV]
 - Now handling args and config in child context. [AlexV]
