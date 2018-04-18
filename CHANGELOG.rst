@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-%%version%% (unreleased)
-------------------------
+0.5.2 (2018-04-18)
+------------------
 - Fixing tox config. [AlexV]
 - Adding rosdistros to travis build. [AlexV]
 - Dropping py3 travis checks. still hanging... [AlexV]
