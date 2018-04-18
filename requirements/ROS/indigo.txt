@@ -13,7 +13,7 @@
 
 tblib==1.2.0  # this might not always install six (latest version does not)
 # six==1.5.2  # dropping six here, our usage is minimal and it breaks test tools
-pyzmq==14.0.1
+pyzmq==17.0.0
 pyzmp==0.0.17
 pyros_config==0.2.0
 mock==1.0.1
