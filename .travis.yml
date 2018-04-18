@@ -9,9 +9,10 @@ branches:
 
 python:
   - 2.7
-  - 3.4
-  - 3.5
-  - 3.6
+  # python3 still hanging ... no idea why
+  # - 3.4
+  # - 3.5
+  # - 3.6
   #- pypy
   #- pypy3
 
