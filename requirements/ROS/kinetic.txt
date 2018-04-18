@@ -10,7 +10,7 @@
 
 # Package Dependencies need to match ROS (or xenial's) package version
 
-tblib==1.2.0  # this might not always install six (latest version does not)
+tblib==1.3.2  # this might not always install six (latest version does not)
 six==1.10.0
 pyzmq==15.2.0
 pyzmp==0.0.17
