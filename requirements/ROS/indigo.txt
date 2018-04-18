@@ -11,7 +11,7 @@
 
 # Package Dependencies need to match ROS (or trusty's) package version
 
-tblib==1.2.0  # this might not always install six (latest version does not)
+tblib==1.3.2  # this might not always install six (latest version does not)
 # six==1.5.2  # dropping six here, our usage is minimal and it breaks test tools
 pyzmq==14.0.1
 pyzmp==0.0.17
