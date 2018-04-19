@@ -13,6 +13,14 @@ class PyrosException(Exception):
        >>>  # TODO doctest
     """
 
+    def __init__(self, *args):
+        """
+        Overriding Exception constructor to handle both old and new Exception format...
+        :param args:
+        :return:
+        """
+        super(PyrosException, self).__init__(*args)
+
     # redefining __str__ to get custom message to appear on raise
     def __str__(self):
         return self.message
