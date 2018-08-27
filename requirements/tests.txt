@@ -1,5 +1,5 @@
 # latest version to validate behavior on pure python env
 pytest==3.7.3
 # pytest-xdist  # for --boxed  # dropping this because of compat req with six...
-hypothesis
+hypothesis==3.69.5
 numpy
